@@ -9,9 +9,11 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.js"></script>
         <script src="https://d3js.org/queue.v1.min.js"></script>
         <script src="https://d3js.org/topojson.v1.min.js"></script>
+        <script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>
 
         <link rel="stylesheet" type="text/css" href="css/hexagons.css">
         <link rel="stylesheet" type="text/css" href="css/spinner.css">
+        <link rel="stylesheet" type="text/css" href="css/radarChart.css">
     </head>
     <body>
         <div class="header">
@@ -26,8 +28,26 @@
           <div class="rect5"></div>
         </div>
         <div id="chart"></div>
-        
-        <script type="text/javascript" src="js/script.js"></script>
+        <!-- <div id="details" style="text-align: center">
+            <div class="radarChart" id="detailsRadar1"></div>
+            <div class="radarChart" id="detailsRadar2"></div>
+            <div class="radarChart" id="detailsRadar3"></div>
+        </div> -->
+        <div id="parallel"></div>
+        <div id="trail" hidden="true">
+            <h1>Analytic Trail</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eget metus euismod, tincidunt metus eu, viverra nisl. Nam facilisis metus arcu. Curabitur at vehicula mi. Aliquam blandit malesuada pellentesque. Pellentesque ultrices rutrum magna a posuere. Nulla pulvinar convallis eros quis semper. Vestibulum nisl nulla, lobortis id turpis egestas, elementum dignissim purus. Donec quam ante, sollicitudin in libero sed, vestibulum hendrerit odio. Vestibulum lacinia mauris sit amet est feugiat, sit amet vestibulum nisl luctus. In a quam ut dui viverra venenatis id ac erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            </p><p>
+            Proin quis est egestas, faucibus lectus ac, placerat nunc. Morbi pharetra dui vel odio interdum sagittis. Maecenas non tortor velit. Etiam commodo eleifend viverra. Suspendisse potenti. Praesent in ornare mauris, dignissim volutpat urna. Fusce neque quam, tincidunt ac dignissim nec, ullamcorper consequat tortor. Aenean sodales ex non sem euismod sagittis quis et ligula. Quisque dui libero, hendrerit eget blandit eu, mollis non sem. Suspendisse sed felis eu quam pellentesque consectetur. Maecenas ullamcorper, arcu a consequat dictum, elit erat condimentum nunc, non posuere risus risus eu justo. Curabitur a finibus mi. Vivamus commodo a elit sed hendrerit. Aenean laoreet tortor vitae accumsan tincidunt. Pellentesque hendrerit pretium lorem hendrerit lacinia. Integer quis imperdiet augue.
+        </p><p>
+            Integer auctor turpis dignissim vehicula mollis. Quisque pretium dignissim nisl, id cursus nunc tincidunt sit amet. Mauris efficitur rutrum justo, id consectetur elit tempus at. Proin pellentesque turpis dictum, aliquam lacus nec, pulvinar mi. Nam eleifend varius massa sit amet dignissim. Suspendisse egestas dignissim mi eu lacinia. Morbi vel nisi eleifend, lacinia nisl in, faucibus purus. Suspendisse lacus velit, sodales nec semper sed, lobortis ut arcu.
+        </p><p>
+            Duis varius elit urna, nec ultricies lorem sollicitudin sed. Proin hendrerit dignissim arcu, in tempus dui mollis et. Mauris bibendum, nibh tristique efficitur maximus, nulla tortor suscipit arcu, vitae porta mauris arcu sit amet ipsum. Sed et nisl non justo auctor fringilla. Maecenas pretium, eros eget mattis euismod, ante leo dictum odio, et sodales tortor ex quis enim. Duis sit amet mauris convallis, dictum nunc sed, condimentum diam. Sed eu rhoncus dui. Nam sed erat sit amet tellus ullamcorper maximus. Nulla at libero metus. Nam ut purus ut nisl ullamcorper iaculis a a erat. Etiam mattis turpis nec rhoncus pulvinar. Curabitur bibendum risus et sodales posuere. Donec vel est rhoncus tortor sollicitudin consequat. Vestibulum eget vehicula turpis. Fusce a elit cursus, tincidunt nisi sit amet, accumsan ex.
+        </p><p>
+            Pellentesque nunc lorem, tristique et nulla ullamcorper, pretium molestie orci. Integer eget egestas sapien, at eleifend sem. Sed ut eleifend ex, nec fermentum ligula. Maecenas elementum lorem ut lacus auctor, id dignissim augue feugiat. Mauris id nisl consequat, luctus velit eget, tristique nibh. Vivamus non fermentum libero. Donec imperdiet ullamcorper justo vel laoreet. Donec ligula dolor, faucibus ac ullamcorper ac, euismod sit amet urna. Ut sed pellentesque tortor. Cras convallis, lacus sit amet semper rutrum, massa diam condimentum nibh, et placerat felis sapien mattis dui. Sed laoreet justo enim, et venenatis ipsum efficitur euismod. Duis a accumsan augue. Morbi auctor est eu enim facilisis malesuada. Ut a tortor convallis, dapibus augue nec, auctor justo. Sed congue lacinia purus, quis maximus elit hendrerit et. Morbi nec gravida turpis.</p>
+        </div>
+        <script type="text/javascript" src="js/new_script.js"></script>
+        <!-- <script type="text/javascript" src="js/radarChart.js"></script> -->
 
     </body>
 </html>
