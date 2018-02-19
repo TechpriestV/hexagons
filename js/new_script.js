@@ -67,6 +67,7 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
             ;
     }
     function fillCountry(country) {
+        $("#cDiv").empty();
         if (selected == country) {
             return
         }
@@ -75,7 +76,8 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
                 .duration(500)
                 .style("fill", dataCountryColor)
         if(country != "Other"){
-        selected = country;
+            $("#cDiv").html(country)
+            selected = country;
             var el = d3.selectAll("#"+country)
                 .transition(10)
                 .duration(10)
@@ -83,6 +85,7 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
                 ;
 
         }else{
+            $("#cDiv").html('No_Data')
             selected = null;
         }
     }
@@ -200,7 +203,7 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
         .style("fill-opacity", 1)
         .on("mouseover", mover)
         .on("click", function(d) {
-            logCordinate(d.i, d.j)
+            // logCordinate(d.i, d.j)
             country = getCountry(d.i+adjustCordinate(d.j), d.j+1);
             fillCountry(country);
       })
