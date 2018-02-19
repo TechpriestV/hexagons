@@ -61,7 +61,7 @@ var countryColor = "#d3d3d3"
 
 
 d3.queue()
-    .defer(d3.json, "/data/combined.json")
+    .defer(d3.json, "data/combined.json")
     .defer(d3.csv, "data/map.csv")
     .await(loadData);
 
