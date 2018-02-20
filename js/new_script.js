@@ -35,7 +35,7 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
     $('.spinner').hide()
     $('#trail').show()
     var selected;
-    var waves=[wave1, wave2, wave3, wave4];
+    var waves={"wave1":wave1, "wave2":wave2, "wave3":wave3, "wave4":wave4};
     // waves[3].forEach(function(d) {familyKey.forEach(function(p) {
     //     console.log(d[p])
     // })})
@@ -54,6 +54,10 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
 
     function getKey() {
         return $("#key").val();
+    }
+
+    function getWave() {
+        return $("#wave").val();
     }
 
     function mover(d) {
@@ -176,6 +180,7 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
         // body...
         $('#chart').hide();
         $('.spinner').show();
+        
         worldSVG.append("g")
             .selectAll(".hexagon")
             .data(hexbin(points))
@@ -195,6 +200,10 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
             .style("fill", function (d,i) {
                 // console.log("hexagon at : " + d.i + ":" + d.j)
                 // var even = true;
+                if (d.i == 99) {
+                    $('#chart').show();
+                    $('.spinner').hide();
+                }
                 if (d.j % 2 == 0){
                     if(d.j == 1){
                         rowOffset = 2
@@ -210,7 +219,7 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
                 }else if (a==="y"){
                     if( getCountry(d.i+adjustCordinate(d.j), d.j+1) != "Other"){                
                         var tmp = [];
-                        waves[3].forEach(function(c) {
+                        waves[getWave()].forEach(function(c) {
                             keys[getKey()].forEach(function(k) {
                                 if (c.Country === getCountry(d.i+adjustCordinate(d.j), d.j+1)) {
                                     // console.log(c[k])
@@ -246,9 +255,9 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
                 fillCountry(country);
           })
             .on("mouseout", mout);
-            $('#chart').show();
-        $('.spinner').hide();
+            
     };
     draw();
     $('#key').change(draw);
+    $('#wave').change(draw);
 }; 
