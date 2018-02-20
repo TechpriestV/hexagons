@@ -174,7 +174,8 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
     }
     function draw() {
         // body...
-    
+        $('#chart').hide();
+        $('.spinner').show();
         worldSVG.append("g")
             .selectAll(".hexagon")
             .data(hexbin(points))
@@ -245,6 +246,8 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
                 fillCountry(country);
           })
             .on("mouseout", mout);
+            $('#chart').show();
+        $('.spinner').hide();
     };
     draw();
     $('#key').change(draw);
