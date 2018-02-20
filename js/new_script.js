@@ -1,10 +1,23 @@
 
-var sweden = [[26,55],[25,54],[25,55],[24,54],[24,55],[24,56],[23,56],[23,55],[23,54],[22,55],[22,56],[21,55],[21,56],[20,56],[20,57],[19,56],[19,57],[18,57]]
+// var sweden = [[26,55],[25,54],[25,55],[24,54],[24,55],[24,56],[23,56],[23,55],[23,54],[22,55],[22,56],[21,55],[21,56],[20,56],[20,57],[19,56],[19,57],[18,57]]
 
 var selectedColor = "Orange";
 var dataCountryColor = "#b3b3b3";
-var countryColor = "#d3d3d3"
+var countryColor = "#d3d3d3";
 
+var currentWave = 0;
+
+
+var happinessKey = ["VeryHappy","QuiteHappy","NotVeryHappy","NotHappyAtAll"];
+var financialKey = ["FinancialSatisfactionAverage","FinancialSatisfaction1","FinancialSatisfaction2","FinancialSatisfaction3","FinancialSatisfaction4","FinancialSatisfaction5","FinancialSatisfaction6","FinancialSatisfaction7","FinancialSatisfaction8","FinancialSatisfaction9","FinancialSatisfaction10"];
+var healthKey = ["HealthVeryGood","HealthGood","HealthFair","HealthPoor"];
+var workKey = ["WorkVeryImportant","WorkRatherImportant","WorkNotVeryImportant","WorkNotImportantAtAll"];
+var leisureKey = ["LeisureVeryImportant","LeisureRatherImportant","LeisureNotVeryImportant","LeisureNotImportantAtAll"];
+var friendKey = ["FriendsVeryImportant","FriendsRatherImportant","FriendsNotVeryImportant","FriendsNotImportantAtAll"];
+var religionKey = ["ReligionVeryImportant","ReligionRatherImportant","ReligionNotVeryImportant","ReligionNotImportantAtAll"];
+var familyKey = ["FamilyVeryImportant","FamilyRatherImportant","FamilyNotVeryImportant","FamilyNotImportantAtAll"];
+
+var keys = {"happiness" : happinessKey,"financial" : financialKey,"health" : healthKey,"work" : workKey,"leisure" : leisureKey,"friend" : friendKey,"religion" : religionKey,"family" : familyKey};
 
 d3.queue()
     .defer(d3.csv, "data/map.csv")
@@ -18,28 +31,29 @@ d3.queue()
 function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
     if(error){console.log(error);}
     // console.log(co)
-    // console.log(wave1)
     data = wave1;
     $('.spinner').hide()
     $('#trail').show()
     var selected;
+    var waves=[wave1, wave2, wave3, wave4];
+    // waves[3].forEach(function(d) {familyKey.forEach(function(p) {
+    //     console.log(d[p])
+    // })})
 
     function getCountry(y,x) {
-        // for (var i = 0; i < sweden.length; i++) {
-        //     if(x == sweden[i][0] && y ==sweden[i][1]){
-        //         return "Sweden"
-        //     }
-        // }
         var value = "Other"
         co.forEach(function(c) {
             for (var i = 0; i < c.cords.length; i++) {
                 if(x == c.cords[i][0] && y ==c.cords[i][1]){
-                    // console.log("Hitta: " + c.country)
-                    value = c.country
+                    value = c.country;
                 }
             } 
-        })
+        });
         return value
+    }
+
+    function getKey() {
+        return $("#key").val();
     }
 
     function mover(d) {
@@ -71,18 +85,18 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
         if (selected == country) {
             return
         }
-        d3.selectAll('#'+selected)
-                .transition(500)
-                .duration(500)
-                .style("fill", dataCountryColor)
+        // d3.selectAll('#'+selected)
+        //         .transition(500)
+        //         .duration(500)
+        //         .style("fill", dataCountryColor)
         if(country != "Other"){
             $("#cDiv").html(country)
-            selected = country;
-            var el = d3.selectAll("#"+country)
-                .transition(10)
-                .duration(10)
-                .style("fill", selectedColor)
-                ;
+            // selected = country;
+            // var el = d3.selectAll("#"+country)
+            //     .transition(10)
+            //     .duration(10)
+            //     .style("fill", selectedColor)
+            //     ;
 
         }else{
             $("#cDiv").html('No_Data')
@@ -91,9 +105,9 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
     }
 
     var margin = {
-        top: 50,
+        top: 10,
         right: 20,
-        bottom: 20,
+        bottom: 0,
         left: 50
     };
 
@@ -158,55 +172,80 @@ function loadData(error, mapData, wave1, wave2, wave3, wave4, co) {
         // console.log(getCountry((x+offset),(y+1)))
         console.log((y+1)+","+(x+offset))
     }
-
-    worldSVG.append("g")
-        .selectAll(".hexagon")
-        .data(hexbin(points))
-        .enter().append("path")
-        .attr("class", "hexagon")
-        .attr("country", function(d) {
-            return getCountry(d.i+adjustCordinate(d.j), d.j+1)
-        })
-        .attr("id", function(d) {
-            return getCountry(d.i+adjustCordinate(d.j), d.j+1)
-        })
-        .attr("d", function (d) {
-        return "M" + d.x + "," + d.y + hexbin.hexagon();
-        })
-        .attr("stroke", "white")
-        .attr("stroke-width", "1px")
-        .style("fill", function (d,i) {
-            // console.log("hexagon at : " + d.i + ":" + d.j)
-            // var even = true;
-            if (d.j % 2 == 0){
-                if(d.j == 1){
+    function draw() {
+        // body...
+    
+        worldSVG.append("g")
+            .selectAll(".hexagon")
+            .data(hexbin(points))
+            .enter().append("path")
+            .attr("class", "hexagon")
+            .attr("country", function(d) {
+                return getCountry(d.i+adjustCordinate(d.j), d.j+1)
+            })
+            .attr("id", function(d) {
+                return getCountry(d.i+adjustCordinate(d.j), d.j+1)
+            })
+            .attr("d", function (d) {
+            return "M" + d.x + "," + d.y + hexbin.hexagon();
+            })
+            .attr("stroke", "white")
+            .attr("stroke-width", "1px")
+            .style("fill", function (d,i) {
+                // console.log("hexagon at : " + d.i + ":" + d.j)
+                // var even = true;
+                if (d.j % 2 == 0){
+                    if(d.j == 1){
+                        rowOffset = 2
+                    }else{
+                        rowOffset = 1
+                    }
+                }else{
                     rowOffset = 2
-                }else{
-                    rowOffset = 1
                 }
-            }else{
-                rowOffset = 2
-            }
-            a = mapData[d.j][d.i+rowOffset]
-            if (a === "n") {
-                return "white"
-            }else if (a==="y"){
-                if( getCountry(d.i+adjustCordinate(d.j), d.j+1) != "Other"){
-                    return dataCountryColor
+                a = mapData[d.j][d.i+rowOffset]
+                if (a === "n") {
+                    return "white"
+                }else if (a==="y"){
+                    if( getCountry(d.i+adjustCordinate(d.j), d.j+1) != "Other"){                
+                        var tmp = [];
+                        waves[3].forEach(function(c) {
+                            keys[getKey()].forEach(function(k) {
+                                if (c.Country === getCountry(d.i+adjustCordinate(d.j), d.j+1)) {
+                                    // console.log(c[k])
+                                    tmp.push(parseFloat(c[k]));
+                            };
+                        })})
+                        if (tmp.length > 4){
+                            tmp = [tmp[1]+tmp[2], tmp[3]+tmp[4], tmp[5]+tmp[6], tmp[7]+tmp[8]]
+                        }
+                        // console.log(tmp)
+                        if (Math.max(...tmp) == tmp[0]) {
+                            return "#EC4B0F"
+                        }else if (Math.max(...tmp) == tmp[1]) {
+                            return "#EC8C0F"
+                        } else if(Math.max(...tmp) == tmp[2]){
+                            return "#0BA35E"
+                        }else if(Math.max(...tmp) == tmp[3]){
+                            return "#136097"
+                        }
+                        return dataCountryColor
+                    }else{
+                        return countryColor
+                    }
                 }else{
-                    return countryColor
+                    return "red"
                 }
-            }else{
-                return "red"
-            }
-      })
-        .style("fill-opacity", 1)
-        .on("mouseover", mover)
-        .on("click", function(d) {
-            // logCordinate(d.i, d.j)
-            country = getCountry(d.i+adjustCordinate(d.j), d.j+1);
-            fillCountry(country);
-      })
-        .on("mouseout", mout);
-
+          })
+            .style("fill-opacity", 1)
+            .on("mouseover", mover)
+            .on("click", function(d) {
+                // logCordinate(d.i, d.j)
+                country = getCountry(d.i+adjustCordinate(d.j), d.j+1);
+                fillCountry(country);
+          })
+            .on("mouseout", mout);
+    };
+    draw();
+    $('#key').change(draw);
 }; 

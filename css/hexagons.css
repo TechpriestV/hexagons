@@ -5,6 +5,11 @@ body {
   font-size: 14px;
 }
 
+p{
+  margin-left: 20px;  
+  margin-right: 20px;
+  
+}
 .header {
   margin-top: 20px;
   margin-left: 20px;
